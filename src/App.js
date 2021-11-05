@@ -19,6 +19,33 @@ function App() {
     duration
   } = useVideoPlayer(videoElement);
 
+  const videoContainer = document.getElementById('video-wrapper');
+
+  function toggleFullscreen() {
+    let elem = document.querySelector("video");
+  
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen().catch(err => {
+        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  function togglePictureInPicture() {
+    let elem = document.querySelector("video");
+    if (document.pictureInPictureElement) {
+        document.exitPictureInPicture();
+    } else {
+      if (document.pictureInPictureEnabled) {
+        elem.requestPictureInPicture();
+      }
+    }
+  }
+
+
+
  
   return (
     <div className="container">
@@ -27,6 +54,7 @@ function App() {
           src={Video}
           ref={videoElement}
           onTimeUpdate={handleOnTimeUpdate}
+          poster={Poster}
         />
         <div className="controls">
           <div className="actions">
@@ -67,7 +95,14 @@ function App() {
                                 <span className="time-duration">{Math.round( duration * 10 ) / 10}</span>
 
                             </div>
+        <div className="fullscreen-button">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAANZJREFUaEPtmUEOhDAMA+H/j4YrQkA9KNCChrOJm3Giot15+vgzf/z8kw30TtAERk5guXm4Vqqlda/MSo02MErr2sDBmA07Qq2D3VyZ09f2o3boT0bIBmBEJhARgFSJPPJ3BwhSqDWBiACkSuSR/693gNDqpn37di1v1AbKkcKCJgCBlctNoBwpLPjriyy6yiEwIo/8TYAghVoTiAhAqkQe+bsDBCnUmkBEAFIl8sif7EBq3vq+8uf1LUkTGPn/gXTmu+paC9f1cIm5DSSUntSYwJN0k9orTH04MQ9PM8sAAAAASUVORK5CYII=" onClick={toggleFullscreen}/>
         </div>
+        <div>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAZBJREFUaEPtmO9NAzEMxV8nKEzQjsAGwAZsUjYoTAIbsAJsRCcoehJXtdHpznYSx5GSL/clf/yL/eyLN+h8bDq3HwOgtQetHngBcADwAODOAeIbwDsAfm+GBYDGfzkYPXfEcwphAeAtPDYC+AHwdH22BeDcyHge+wvgvmcA2n5z6b15YADwBlpqwNUDTHmfAHaFRe+mgemgVwBvALaFQNwBaDerNSFYvXNHE4DJ6P1/WOUUwlWAVKRpqpWKeClFs5pa9RECYPKIRR+hACz6CAeg1UdogI/0b3MmZYUDYIo9AqAeJCMUAI2m8ZpXXQgAplGGC+uCdjQFoMGSOF+CagKgjfNQAJY4DwHA32lrnIcA0IpTOt9NA1KDtPMGgPR3Wnuz0vlde+CUVu25R8fagyZ8a3ENIHxzdw2AsUoIFii210t1G5Y0wKYumwKi9roEQCq46vMsGqhulOaAAaC5rRpzJR6oce71npYW/2X93GLvPF8cwDvPFwfwzvNVAGrHfbH9s+iLWZGx0QDIuLwiS/8Ad89WMe4EFBYAAAAASUVORK5CYII=" onClick={togglePictureInPicture}/>
+        </div>
+        </div>
+        
       </div>
     </div>
   );

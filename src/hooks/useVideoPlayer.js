@@ -12,6 +12,7 @@ function useVideoPlayer(videoElement) {
 
     const [ currentTime, setCurrentTime] = useState(0)
     const [ duration, setDuration] = useState(0)
+    const [fullscreen ,setFullscreen] = useState(false)
 
 
       const togglePlay = () => {
@@ -19,6 +20,7 @@ function useVideoPlayer(videoElement) {
           ...playerState,
           isPlaying: !playerState.isPlaying,
         });
+        fullScreen()
       };
 
       useEffect(() => {
@@ -76,7 +78,10 @@ function useVideoPlayer(videoElement) {
       ? (videoElement.current.muted = true)
       : (videoElement.current.muted = false);
    }, [playerState.isMuted, videoElement]);
-
+    
+   const fullScreen = () => {
+       console.log(videoElement, 'ejnnekjekjejej')
+   }
 
     return {
         playerState,
