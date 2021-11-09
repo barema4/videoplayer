@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 function useVideoPlayer(videoElement) {
 
+  console.log(videoElement, 'duration')
+
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
         progress: 0,
@@ -12,7 +14,7 @@ function useVideoPlayer(videoElement) {
 
     const [ currentTime, setCurrentTime] = useState(0)
     const [ duration, setDuration] = useState(0)
-    const [fullscreen ,setFullscreen] = useState(false)
+    
 
 
       const togglePlay = () => {
@@ -30,14 +32,15 @@ function useVideoPlayer(videoElement) {
       }, [playerState.isPlaying, videoElement]);
 
     
-      useEffect(()=> {
-        // setCurrentTime(videoElement.current.currentTime )
-        setDuration(videoElement.current.duration)
-      },[videoElement])
+      // useEffect(()=> {
+      //   // setCurrentTime(videoElement.current.currentTime )
+        
+      // },[videoElement.current])
 
 
       const handleOnTimeUpdate = () => {
         setCurrentTime(videoElement.current.currentTime )
+        setDuration(videoElement.current.duration)
         const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
         setPlayerState({
           ...playerState,
